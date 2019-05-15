@@ -1,0 +1,14 @@
+mybatis:
+  type-aliases-package: com.yaqi.entity  # 起别名
+  mapper-locations: /com/yaqi/repository/*.xml #mapper映射文件的位置
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+logging:
+  level:
+    root: info   # debug设置最低，可以查看sql

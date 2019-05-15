@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yaqi.repository.GoodsRepository">
+
+    <!--以下排他锁解决超卖问题-->
+    <select id="findById" resultMap="goods" parameterType="java.lang.Integer">
+        select
+        *
+        from goods
+        where id = #{id,jdbcType=INTEGER} for update
+    </select>
+    <!--以下为共享锁解决超卖问题，共享锁容易产生死锁-->
+    <!--<select id="findById" resultMap="goods" parameterType="java.lang.Integer">-->
+        <!--select-->
+        <!--*-->
+        <!--from goods-->
+        <!--where id = #{id,jdbcType=INTEGER} lock in share mode-->
+    <!--</select>-->
+    <resultMap id="goods" type="Goods">
+        <id column="id" property="id"></id>
+        <result column="goods_name" property="goodsName"></result>
+        <result column="count" property="count"></result>
+    </resultMap>
+    <update id="minus" parameterType="goods">
+        update goods set count = count - 1 where id = #{id}
+    </update>
+
+</mapper>
