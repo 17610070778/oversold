@@ -16,5 +16,10 @@ public interface GoodsRepository {
      */
     Goods findById(int id);
 
+    /**
+     * 根据商品id，将商品减一
+     * @param goods
+     */
+
     void minus(Goods goods);
 }

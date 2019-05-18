@@ -9,6 +9,11 @@
         from goods
         where id = #{id,jdbcType=INTEGER} for update
     </select>
+    <update id="minus" parameterType="goods">
+        update goods set count = count - 1  where id = #{id}
+    </update>
+
+
     <!--以下为共享锁解决超卖问题，共享锁容易产生死锁-->
     <!--<select id="findById" resultMap="goods" parameterType="java.lang.Integer">-->
         <!--select-->
@@ -16,13 +21,30 @@
         <!--from goods-->
         <!--where id = #{id,jdbcType=INTEGER} lock in share mode-->
     <!--</select>-->
+    <!--<update id="minus" parameterType="goods">-->
+        <!--update goods set count = count - 1  where id = #{id}-->
+    <!--</update>-->
+
+
+    <!--以下不开启事务，使用版本号来解决并发-->
+    <!--<select id="findById" resultMap="goods" parameterType="java.lang.Integer">-->
+        <!--select-->
+        <!--*-->
+        <!--from goods-->
+        <!--where id = #{id,jdbcType=INTEGER}-->
+    <!--</select>-->
+    <!--<update id="minus" parameterType="goods">-->
+        <!--update goods set count = count - 1 , version = #{version} + 1 where id = #{id} and version = #{version}-->
+    <!--</update>-->
+
     <resultMap id="goods" type="Goods">
         <id column="id" property="id"></id>
         <result column="goods_name" property="goodsName"></result>
         <result column="count" property="count"></result>
+        <result column="version" property="version"></result>
     </resultMap>
     <update id="minus" parameterType="goods">
-        update goods set count = count - 1 where id = #{id}
+        update goods set count = count - 1  where id = #{id}
     </update>
 
 </mapper>

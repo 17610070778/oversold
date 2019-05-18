@@ -26,5 +26,9 @@ public class Goods {
      * 商品剩余数量
      */
     private int count;
+    /**
+     * 版本号
+     */
+    private int version;
 
 }
