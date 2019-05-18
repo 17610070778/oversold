@@ -43,8 +43,5 @@
         <result column="count" property="count"></result>
         <result column="version" property="version"></result>
     </resultMap>
-    <update id="minus" parameterType="goods">
-        update goods set count = count - 1  where id = #{id}
-    </update>
 
 </mapper>
